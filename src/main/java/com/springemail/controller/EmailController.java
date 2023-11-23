@@ -2,6 +2,7 @@ package com.springemail.controller;
 
 import com.springemail.dto.EmailDetails;
 import com.springemail.service.EmailService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,9 +16,15 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/sendmail")
+    @PostMapping("/sendMail")
     public String sendMail(@RequestBody EmailDetails emailDetails){
         String response =  emailService.sendEmail(emailDetails);
+        return response;
+    }
+
+    @PostMapping("/sendMailWithAttachment")
+    public String sendMailWithAttachment(@RequestBody EmailDetails emailDetails) throws MessagingException {
+        String response =  emailService.sendMailWithAttachment(emailDetails);
         return response;
     }
 }
